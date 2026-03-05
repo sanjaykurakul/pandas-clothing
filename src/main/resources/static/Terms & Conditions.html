@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Terms & Conditions - Pandas</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="icon" type="image/png" href="/panda.png">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+<header class="navbar">
+    <div class="left">
+        <div onclick="toggleMenu()">☰</div>
+    </div>
+
+    <div class="center">
+        <div class="brand">
+            <img src="/images/panda.png" height="26">
+            <span style="font-size:22px;font-weight:600;letter-spacing:2px;">
+                PANDAS
+            </span>
+        </div>
+    </div>
+
+    <div class="right">
+        <div>🔍</div>
+        <div>👤</div>
+        <div>🛒</div>
+    </div>
+</header>
+
+<div id="sideMenu" class="side-menu">
+    <div class="close-btn" onclick="toggleMenu()">✖</div>
+
+    <ul>
+        <li><a href="/index.html">Home</a></li>
+        <li><a href="/account.html">Account</a></li>
+        <li><a href="/shirts.html">Shirts</a></li>
+        <li><a href="/cargo.html">Cargo</a></li>
+        <li><a href="/tshirts.html">T-Shirts</a></li>
+        <li><a href="/shoes.html">Shoes</a></li>
+<!--        <li><a href="/account.html">Account</a></li>-->
+    </ul>
+</div>
+
+<div id="overlay" onclick="toggleMenu()"></div>
+
+
+
+
+<main style="padding:40px; max-width:900px; margin:auto;">
+    <h1>Terms & Conditions</h1>
+
+    <h3>Orders</h3>
+    <p>All orders are subject to availability.</p>
+
+    <h3>Returns</h3>
+    <p>Returns accepted within 7 days.</p>
+
+    <h3>Payments</h3>
+    <p>We accept UPI, Credit/Debit cards and Net Banking.</p>
+</main>
+<footer class="footer">
+    <p>© 2026 Pandas Clothing</p>
+</footer>
+
+
+<script src="/js/main.js"></script>
+</body>
+</html>

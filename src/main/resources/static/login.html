@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login - Pandas</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" type="image/png" href="/panda.png">
+  <style>
+    body {
+        font-family: 'Segoe UI', sans-serif;
+        background: #f4f4f4;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .login-box {
+        background: white;
+        padding: 40px;
+        width: 350px;
+        border-radius: 10px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    }
+
+    .login-box h2 {
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .login-box input {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+    }
+
+    .login-box button {
+        width: 100%;
+        padding: 12px;
+        background: black;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+    }
+
+    .error {
+        color: red;
+        font-size: 13px;
+        text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<div class="login-box">
+  <h2>Login</h2>
+
+  <!-- IMPORTANT -->
+  <form method="POST" action="/login">
+
+    <input type="text" name="username" placeholder="Email" required>
+    <input type="password" name="password" placeholder="Password" required>
+
+    <button type="submit">Login</button>
+
+  </form>
+
+</div>
+
+</body>
+</html>

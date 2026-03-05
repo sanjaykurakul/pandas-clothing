@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Register - Pandas</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" type="image/png" href="/panda.png">
+
+  <style>
+    body {
+        background: #f4f4f4;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    .register-box {
+        background: white;
+        padding: 40px;
+        width: 380px;
+        border-radius: 12px;
+        box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+    }
+
+    .register-box h2 {
+        text-align: center;
+        margin-bottom: 25px;
+    }
+
+    .register-box input {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+    }
+
+    .register-box button {
+        width: 100%;
+        padding: 12px;
+        background: black;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 500;
+    }
+
+    .error {
+        color: red;
+        font-size: 13px;
+        margin-bottom: 10px;
+    }
+
+    /* TOAST */
+    .toast {
+        position: fixed;
+        top: 30px;
+        right: 30px;
+        background: #111;
+        color: white;
+        padding: 15px 25px;
+        border-radius: 8px;
+        opacity: 0;
+        transform: translateY(-20px);
+        transition: all 0.4s ease;
+    }
+
+    .toast.show {
+        opacity: 1;
+        transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+<div class="register-box">
+  <h2>Create Account</h2>
+
+  <div class="error" id="errorMsg"></div>
+
+  <input type="email" id="email" placeholder="Email" required>
+  <input type="password" id="password" placeholder="Password" required>
+  <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+
+  <button onclick="registerUser()">Register</button>
+
+  <br><br>
+  <p style="text-align:center;">
+    Already have account? <a href="/account.html">Login</a>
+  </p>
+</div>
+
+<div class="toast" id="toast">Registered successfully!</div>
+
+<script>
+
+  function showToast(message) {
+
+      const toast = document.getElementById("toast");
+      toast.innerText = message;
+      toast.classList.add("show");
+
+      setTimeout(() => {
+          toast.classList.remove("show");
+      }, 2000);
+  }
+
+  function validateEmail(email) {
+      const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return pattern.test(email);
+  }
+
+  function registerUser() {
+
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+      const confirmPassword = document.getElementById("confirmPassword").value;
+      const errorMsg = document.getElementById("errorMsg");
+
+      errorMsg.innerText = "";
+
+      // ✅ EMAIL VALIDATION
+      if (!validateEmail(email)) {
+          errorMsg.innerText = "Please enter a valid email address.";
+          return;
+      }
+
+      // ✅ PASSWORD LENGTH CHECK
+      if (password.length < 6) {
+          errorMsg.innerText = "Password must be at least 6 characters.";
+          return;
+      }
+
+      // ✅ PASSWORD MATCH CHECK
+      if (password !== confirmPassword) {
+          errorMsg.innerText = "Passwords do not match.";
+          return;
+      }
+
+      // SEND TO BACKEND
+      fetch("/api/users/register", {
+          method: "POST",
+          headers: {
+              "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+              email: email,
+              password: password
+          })
+      })
+      .then(res => res.text())
+      .then(data => {
+
+          if (data.includes("successfully")) {
+
+             showToast("Verification email sent!");
+
+localStorage.setItem("verifyEmail", email);
+
+setTimeout(() => {
+    window.location.href = "/verification.html";
+}, 1500);
+
+
+
+          } else {
+              errorMsg.innerText = data;
+          }
+
+      });
+
+  }
+
+</script>
+
+</body>
+</html>

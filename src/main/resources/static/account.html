@@ -1,0 +1,515 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Pandas Clothing</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/account.css">
+    <link rel="icon" type="image/png" href="/panda.png">
+
+    <style>
+
+        /* LOGIN DESIGN */
+        .login-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80vh;
+        }
+
+        .login-card {
+            background: white;
+            width: 380px;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            text-align: center;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .login-card h2 {
+            margin-bottom: 20px;
+        }
+
+        .login-card input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+
+        .login-card input:focus {
+            border-color: black;
+            outline: none;
+        }
+
+        .login-card button {
+            width: 100%;
+            padding: 12px;
+            background: black;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .login-card button:hover {
+            background: #333;
+        }
+
+        .create-link {
+            margin-top: 15px;
+            font-size: 14px;
+        }
+<!--        <div id="loginError"-->
+<!--     style="background:#ffe6e6;-->
+<!--            color:#cc0000;-->
+<!--            padding:10px;-->
+<!--            border-radius:6px;-->
+<!--            margin-bottom:15px;-->
+<!--            font-size:14px;">-->
+<!--</div>-->
+
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<header class="navbar">
+
+    <div class="left">
+        <div onclick="toggleMenu()">☰</div>
+    </div>
+
+    <div class="center">
+        <div class="brand">
+            <img src="/images/panda.png" height="26">
+            <span style="font-size:22px;font-weight:600;letter-spacing:2px;">
+                PANDAS
+            </span>
+        </div>
+    </div>
+
+    <div class="right">
+
+        <div class="profile-menu" style="position:relative;">
+            <span id="profileIcon" style="cursor:pointer;">Login</span>
+
+            <div id="dropdown"
+                 style="display:none;
+                    position:absolute;
+                    right:0;
+                    background:white;
+                    box-shadow:0 5px 20px rgba(0,0,0,0.1);
+                    padding:10px;
+                    border-radius:8px;
+                    min-width:150px;">
+
+                <div onclick="window.location.href='/account.html'"
+                     style="padding:8px; cursor:pointer;">
+                    Dashboard
+                </div>
+
+                <div onclick="logoutUser()"
+                     style="padding:8px; cursor:pointer; color:red;">
+                    Logout
+                </div>
+
+            </div>
+        </div>
+
+        <a href="/cart.html" class="icon">
+            🛒
+            <span id="cart-count" class="badge">0</span>
+        </a>
+
+    </div>
+</header>
+
+<!--&lt;!&ndash;                -->
+
+<!--                <div onclick="logoutUser()"-->
+<!--                     style="padding:8px; cursor:pointer; color:red;">-->
+<!--                    Logout-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <a href="/cart.html" class="icon">-->
+<!--            🛒-->
+<!--            <span id="cart-count" class="badge">0</span>-->
+<!--        </a>-->
+
+<!--    </div>-->
+
+<!--</header>-->
+
+<!-- SIDE MENU -->
+<div id="sideMenu" class="side-menu">
+    <div class="close-btn" onclick="toggleMenu()">✖</div>
+    <ul>
+        <li><a href="/index.html">Home</a></li>
+        <li><a href="/account.html">Account</a></li>
+        <li><a href="/shirts.html">Shirts</a></li>
+        <li><a href="/cargo.html">Cargo</a></li>
+        <li><a href="/tshirts.html">T-Shirts</a></li>
+        <li><a href="/shoes.html">Shoes</a></li>
+<!--        <li><a href="/account.html">Account</a></li>-->
+    </ul>
+</div>
+
+<div id="overlay" onclick="toggleMenu()"></div>
+
+
+    <!-- MAIN CONTENT -->
+    <div id="accountContent"></div>
+
+
+<script>
+
+    fetch("/current-user")
+    .then(res => {
+        if (res.status === 401) return null;
+        return res.text();
+    })
+    .then(user => {
+
+        const container = document.getElementById("accountContent");
+        const profileIcon = document.getElementById("profileIcon");
+
+        if (!user) {
+
+            profileIcon.innerText = "Login";
+
+            container.innerHTML = `
+            <div class="login-wrapper">
+                <div class="login-card">
+
+                    <h2>Welcome Back</h2>
+
+                    <form method="POST" action="/login">
+                        <input type="text" name="username" placeholder="Email" required>
+                        <input type="password" name="password" placeholder="Password" required>
+                        <button type="submit">Sign In</button>
+                    </form>
+
+                    <div style="margin-top:15px;">
+                        New here?
+                        <a href="/register.html">Create Account</a>
+                    </div>
+
+                </div>
+            </div>
+            `;
+
+        } else {
+
+            profileIcon.innerText = user + " ▾";
+            profileIcon.onclick = toggleProfileMenu;
+
+            container.innerHTML = `
+            <div class="account-layout">
+
+                <div class="sidebar">
+                    <ul>
+                        <li onclick="loadProfile()">Profile</li>
+                        <li onclick="loadOrders()">Orders</li>
+<!--                        <li onclick="loadWishlist()">Wishlist</li>-->
+                        <li onclick="loadAddresses()">Addresses</li>
+                        <li onclick="loadSettings()">Settings</li>
+                    </ul>
+                </div>
+
+               <div id="content-area" class="content">
+                    <h2>Welcome, ${user}</h2>
+                    <p>Manage your account settings and orders</p>
+                </div>
+
+            </div>
+            `;
+        }
+
+    });
+
+</script>
+
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+
+    if (urlParams.get("error") === "true") {
+        setTimeout(() => {
+            const errorDiv = document.getElementById("loginError");
+            if (errorDiv) {
+                errorDiv.style.display = "block";
+                errorDiv.innerText = "Incorrect email or password";
+            }
+        }, 100);
+    }
+</script>
+
+<script>
+    function toggleProfileMenu() {
+        const drop = document.getElementById("dropdown");
+        drop.style.display = drop.style.display === "block" ? "none" : "block";
+    }
+
+    function logoutUser() {
+        fetch("/logout", { method: "POST" })
+            .then(() => {
+                window.location.href = "/index.html";
+            });
+    }
+</script>
+
+<script>
+    function loadOrders() {
+
+        fetch("/api/orders")
+        .then(res => res.json())
+        .then(orders => {
+
+            const content = document.getElementById("content-area");
+
+            if (orders.length === 0) {
+                content.innerHTML = `
+                    <h2>No Orders Yet</h2>
+                    <a href="/index.html">Start Shopping</a>
+                `;
+                return;
+            }
+
+            let html = "<h2>My Orders</h2>";
+
+            orders.forEach(order => {
+
+    let productsHTML = "";
+
+    if(order.items){
+        order.items.forEach(item => {
+
+            productsHTML += `
+            <div style="display:flex;gap:15px;margin-top:10px;align-items:center;">
+
+                <img src="${item.product.image}"
+                     style="width:70px;height:90px;border-radius:6px;object-fit:cover;">
+
+                <div>
+                    <div style="font-weight:500;">${item.product.name}</div>
+                    <div>Qty: ${item.quantity}</div>
+                    <div>₹${item.price}</div>
+                </div>
+
+            </div>
+            `;
+        });
+    }
+
+    html += `
+    <div style="
+        margin-top:20px;
+        padding:20px;
+        background:white;
+        border-radius:10px;
+        box-shadow:0 5px 20px rgba(0,0,0,0.08);
+    ">
+
+        <h4>Order #${order.id}</h4>
+        <p>Date: ${order.orderDate}</p>
+        <p>Status: <strong>${order.status}</strong></p>
+
+        ${productsHTML}
+
+        <p style="margin-top:10px;font-weight:600;">Total: ₹${order.totalAmount}</p>
+
+    </div>
+    `;
+});
+
+            content.innerHTML = html;
+        });
+    }
+
+    function loadProfile() {
+
+    fetch("/api/user/profile")
+    .then(res => res.json())
+    .then(user => {
+
+        document.getElementById("content-area").innerHTML = `
+            <h2>Profile</h2>
+
+            <div style="max-width:400px">
+
+                <label>Name</label>
+                <input id="name"
+                       value="${user.name || ''}"
+                       style="width:100%;padding:10px;margin:8px 0">
+
+                <label>Phone</label>
+                <input id="phone"
+                       value="${user.phone || ''}"
+                       style="width:100%;padding:10px;margin:8px 0">
+
+                <button onclick="updateProfile()"
+                        style="padding:10px 20px;background:black;color:white;border:none;border-radius:6px;cursor:pointer">
+                    Save
+                </button>
+
+            </div>
+        `;
+    });
+}
+
+function updateProfile() {
+
+    fetch("/api/user/profile", {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            name: document.getElementById("name").value,
+            phone: document.getElementById("phone").value
+        })
+    })
+    .then(() => {
+        alert("Profile Updated ✅");
+    });
+}
+    function loadAddresses() {
+
+    fetch("/api/addresses")
+    .then(res => res.json())
+    .then(addresses => {
+
+        let html = `
+            <h2>My Addresses</h2>
+
+            <form onsubmit="saveAddress(event)">
+                <input placeholder="Full Name" id="name" required>
+                <input placeholder="Phone" id="phone" required>
+                <input placeholder="Address" id="address" required>
+                <input placeholder="City" id="city" required>
+                <input placeholder="State" id="state" required>
+                <input placeholder="Pincode" id="pincode" required>
+                <button type="submit">Save Address</button>
+            </form>
+        `;
+
+        addresses.forEach(a => {
+            html += `
+<div class="address-card">
+
+    <p><strong>${a.name}</strong></p>
+    <p>${a.phone}</p>
+    <p>${a.address}, ${a.city}, ${a.state} - ${a.pincode}</p>
+
+    <button onclick="editAddress(${a.id})">Edit</button>
+
+</div>
+`;
+        });
+
+        document.getElementById("content-area").innerHTML = html;
+    });
+}
+    function saveAddress(e) {
+
+    e.preventDefault();
+
+    fetch("/api/addresses", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            name: name.value,
+            phone: phone.value,
+            address: address.value,
+            city: city.value,
+            state: state.value,
+            pincode: pincode.value
+        })
+    })
+    .then(() => loadAddresses());
+}
+    function loadSettings() {
+
+    document.getElementById("content-area").innerHTML = `
+        <h2>Settings</h2>
+
+        <button onclick="location.href='/privacy & policy.html'">
+            Privacy Policy
+        </button>
+
+        <button onclick="location.href='/Terms & Conditions.html'">
+            Terms & Conditions
+        </button>
+
+        <button onclick="logout()">
+            Logout
+        </button>
+
+        <button onclick="deleteAccount()" style="color:red">
+            Delete Account
+        </button>
+    `;
+}
+function editAddress(id){
+
+    fetch("/api/addresses")
+    .then(res => res.json())
+    .then(addresses => {
+
+        const a = addresses.find(addr => addr.id === id);
+
+        document.getElementById("name").value = a.name;
+        document.getElementById("phone").value = a.phone;
+        document.getElementById("address").value = a.address;
+        document.getElementById("city").value = a.city;
+        document.getElementById("state").value = a.state;
+        document.getElementById("pincode").value = a.pincode;
+
+        document.querySelector("form").onsubmit = function(e){
+            e.preventDefault();
+
+            fetch(`/api/addresses/${id}`,{
+                method:"PUT",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify({
+                    name:name.value,
+                    phone:phone.value,
+                    address:address.value,
+                    city:city.value,
+                    state:state.value,
+                    pincode:pincode.value
+                })
+            })
+            .then(()=>loadAddresses());
+        }
+    })
+}
+    function deleteAccount() {
+
+    if (!confirm("Are you sure?")) return;
+
+    fetch("/api/users/delete", { method: "DELETE" })
+    .then(() => {
+        alert("Account deleted");
+        window.location.href = "/index.html";
+    });
+}
+</script>
+
+<script src="/js/main.js"></script>
+<!--</header>-->
+</body>
+</html>

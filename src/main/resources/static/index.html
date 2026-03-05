@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Pandas Clothing</title>
+    <link rel="stylesheet" href="/css/style.css">
+<!--    <link rel="icon" type="image/x-icon" href="/panda.ico">-->
+    <link rel="icon" type="image/png" href="/panda.png">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<header class="navbar">
+    <div class="left">
+        <div onclick="toggleMenu()">☰</div>
+    </div>
+
+    <div class="center">
+        <div class="brand">
+            <img src="/images/panda.png" height="26">
+            <span style="font-size:22px;font-weight:600;letter-spacing:2px;">
+                PANDAS
+            </span>
+        </div>
+    </div>
+
+    <div class="right">
+
+        <a href="/wishlist.html" class="icon">
+            ♡
+            <span id="wishlist-count" class="badge">0</span>
+        </a>
+
+        <a href="/cart.html" class="icon">
+            🛒
+            <span id="cart-count" class="badge">0</span>
+        </a>
+        <div class="profile-menu" style="position:relative;">
+            <span id="profileIcon" style="cursor:pointer;">Login</span>
+
+            <div id="dropdown"
+                 style="display:none;
+                    position:absolute;
+                    right:0;
+                    background:white;
+                    box-shadow:0 5px 20px rgba(0,0,0,0.1);
+                    padding:10px;
+                    border-radius:8px;
+                    min-width:150px;">
+
+                <div onclick="window.location.href='/account.html'"
+                     style="padding:8px; cursor:pointer;">
+                    Dashboard
+                </div>
+
+                <div onclick="logoutUser()"
+                     style="padding:8px; cursor:pointer; color:red;">
+                    Logout
+                </div>
+            </div>
+        </div>
+
+<!--        <a href="#" class="icon" id="profileIcon">Login</a>-->
+
+    </div>
+</header>
+
+<div id="sideMenu" class="side-menu">
+    <div class="close-btn" onclick="toggleMenu()">✖</div>
+
+    <ul>
+        <li><a href="/index.html">Home</a></li>
+        <li><a href="/account.html">Account</a></li>
+        <li><a href="/shirts.html">Shirts</a></li>
+        <li><a href="/cargo.html">Cargo</a></li>
+        <li><a href="/Tshirts.html">T-Shirts</a></li>
+        <li><a href="/shoes.html">Shoes</a></li>
+<!--        <li><a href="/account.html">Account</a></li>-->
+    </ul>
+</div>
+
+<div id="overlay" onclick="toggleMenu()"></div>
+<main>
+    <section class="featured">
+    <h2>FEATURED CATEGORIES</h2>
+
+    <div class="category-grid">
+
+        <a href="/shirts.html" class="category">
+            <img src="/images/shirts/shirt3 .png">
+            <span>SHIRTS</span>
+        </a>
+
+        <a href="/cargo.html" class="category">
+            <img src="/images/cargo/cargo1.png">
+            <span>CARGO</span>
+        </a>
+
+        <a href="/Tshirts.html" class="category">
+            <img src="/images/Tshirts/tshirt1.png">
+            <span>TSHIRTS</span>
+        </a>
+
+        <a href="/shoes.html" class="category">
+            <img src="/images/shoes/Speedcat-Plus-Sneakers.png">
+            <span>SHOES</span>
+        </a>
+
+    </div>
+
+
+        <footer class="footer">
+            <div class="footer-links">
+                <a href="/about.html">About Us</a>
+                <a href="/privacy & policy.html">Privacy & Policy</a>
+                <a href="/Terms & Conditions.html">Terms & Conditions</a>
+                <a href="/Contact Us.html">Contact Us</a>
+            </div>
+
+            <div class="footer-social">
+                <a href="https://instagram.com" target="_blank">
+                    <i class="fab fa-instagram"></i>
+                </a>
+
+                <a href="https://twitter.com" target="_blank">
+                    <i class="fab fa-twitter"></i>
+                </a>
+
+                <a href="https://linkedin.com" target="_blank">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+            </div>
+
+            <p>© 2026 Pandas Clothing</p>
+        </footer>
+    </section>
+</main>
+
+
+<script src="/js/main.js"></script>
+</body>
+
+</html>

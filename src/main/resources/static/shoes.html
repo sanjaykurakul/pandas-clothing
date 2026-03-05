@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Pandas Clothing</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="icon" type="image/png" href="/panda.png">
+</head>
+<body>
+
+<header class="navbar">
+    <div class="left">
+        <div onclick="toggleMenu()">☰</div>
+    </div>
+
+    <div class="center">
+        <div class="brand">
+            <img src="/images/panda.png" height="26">
+            <span style="font-size:22px;font-weight:600;letter-spacing:2px;">
+                PANDAS
+            </span>
+        </div>
+    </div>
+
+    <div class="right">
+
+        <a href="/wishlist.html" class="icon">
+            ♡
+            <span id="wishlist-count" class="badge">0</span>
+        </a>
+
+        <a href="/cart.html" class="icon">
+            🛒
+            <span id="cart-count" class="badge">0</span>
+        </a>
+
+        <a href="/account.html" class="icon">
+            👤
+        </a>
+
+    </div>
+</header>
+
+<div id="sideMenu" class="side-menu">
+    <div class="close-btn" onclick="toggleMenu()">✖</div>
+
+    <ul>
+        <li><a href="/index.html">Home</a></li>
+        <li><a href="/account.html">Account</a></li>
+        <li><a href="/shirts.html">Shirts</a></li>
+        <li><a href="/cargo.html">Cargo</a></li>
+        <li><a href="/tshirts.html">T-Shirts</a></li>
+        <li><a href="/shoes.html">Shoes</a></li>
+<!--        <li><a href="/account.html">Account</a></li>-->
+    </ul>
+</div>
+
+<div id="overlay" onclick="toggleMenu()"></div>
+<section class="product-grid">
+
+    <div class="product-card">
+
+        <img src="/images/shoes/Boots.webp">
+
+        <h3>Boots</h3>
+        <p>₹1499</p>
+
+        <div class="sizes">
+            <button class="size-btn" onclick="selectSize(this)">41</button>
+            <button class="size-btn" onclick="selectSize(this)">42</button>
+            <button class="size-btn" onclick="selectSize(this)">43</button>
+            <button class="size-btn" onclick="selectSize(this)">44</button>
+        </div>
+
+        <button onclick="addToCart(11,this)">ADD TO BAG</button>
+
+        <button onclick="addToWishlist(11,this)">♡ Wishlist</button>
+    </div>
+
+    <div class="product-card">
+        <img src="/images/shoes/Sneakers.png">
+        <h3>Sneakers</h3>
+        <p>&#8377;14099</p>
+        <div class="sizes">
+            <button class="size-btn" onclick="selectSize(this)">41</button>
+            <button class="size-btn" onclick="selectSize(this)">42</button>
+            <button class="size-btn" onclick="selectSize(this)">43</button>
+            <button class="size-btn" onclick="selectSize(this)">44</button>
+        </div>
+        <button onclick="addToCart(12,this)">ADD TO BAG</button>
+        <button onclick="addToWishlist(12,this)">♡ Wishlist</button>
+    </div>
+
+    <div class="product-card">
+        <img src="/images/shoes/Speedcat-Plus-Sneakers.png">
+        <h3>Speedcat-Plus-Sneakers</h3>
+        <p>&#8377;81499</p>
+        <div class="sizes">
+            <button class="size-btn" onclick="selectSize(this)">41</button>
+            <button class="size-btn" onclick="selectSize(this)">42</button>
+            <button class="size-btn" onclick="selectSize(this)">43</button>
+            <button class="size-btn" onclick="selectSize(this)">44</button>
+        </div>
+        <button onclick="addToCart(13,this)">ADD TO BAG</button>
+        <button onclick="addToWishlist(13,this)">♡ Wishlist</button>
+    </div>
+
+    <div class="product-card">
+        <img src="/images/shoes/Speedcat-Sneakers.png">
+        <h3>Speedcat-Sneakers</h3>
+        <p>&#8377;20000</p>
+        <div class="sizes">
+            <button class="size-btn" onclick="selectSize(this)">41</button>
+            <button class="size-btn" onclick="selectSize(this)">42</button>
+            <button class="size-btn" onclick="selectSize(this)">43</button>
+            <button class="size-btn" onclick="selectSize(this)">44</button>
+        </div>
+        <button onclick="addToCart(14,this)">ADD TO BAG</button>
+        <button onclick="addToWishlist(14,this)">♡ Wishlist</button>
+    </div>
+
+</section>
+
+<footer class="footer">
+    <p>© 2026 Pandas Clothing</p>
+</footer>
+<<script src="/js/main.js"></script>
+
+<script>
+
+    function selectSize(button) {
+
+        const card = button.closest(".product-card");
+
+        card.querySelectorAll(".size-btn")
+            .forEach(btn => btn.classList.remove("active"));
+
+        button.classList.add("active");
+
+        card.dataset.selectedSize = button.innerText;
+    }
+
+    function addToCart(productId, button) {
+
+        const card = button.closest(".product-card");
+        const selectedSize = card.dataset.selectedSize;
+
+        if (!selectedSize) {
+            alert("Please select size");
+            return;
+        }
+
+        fetch(`/cart/add/${productId}?size=${selectedSize}`, {
+            method: "POST"
+        })
+        .then(res => res.text())
+        .then(data => alert(data));
+    }
+
+</script>
+</body>
+
+</html>

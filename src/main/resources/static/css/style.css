@@ -1,0 +1,354 @@
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 40px;
+    border-bottom: 1px solid #eee;
+    z-index: 1000;
+}
+
+body {
+    margin: 0;
+    padding-top: 80px;
+    font-family: 'Segoe UI', sans-serif;
+}
+.navbar .left {
+    width: 80px;
+}
+
+.navbar .center {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.brand img {
+    height: 28px;
+}
+
+.brand span {
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 2px;
+}
+
+/* SIDEBAR MENU */
+.side-menu {
+    position: fixed;
+    top: 0;
+    left: -300px;
+    width: 280px;
+    height: 100vh;
+    background: #fff;
+    box-shadow: 2px 0 15px rgba(0,0,0,0.15);
+    transition: left 0.3s ease;
+    z-index: 2000;
+    padding-top: 80px;
+}
+
+.side-menu.active {
+    left: 0;
+}
+
+.side-menu ul {
+    list-style: none;
+    padding: 0 25px;
+}
+
+.side-menu li {
+    margin: 18px 0;
+}
+
+.side-menu a {
+    text-decoration: none;
+    color: #111;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+/* OVERLAY */
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0,0,0,0.4);
+    display: none;
+    z-index: 1500;
+}
+
+#overlay.active {
+    display: block;
+}
+/* PRODUCT GRID */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    padding: 40px;
+}
+
+/* PRODUCT CARD */
+.product-card {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+/* FIX IMAGE SIZE */
+.product-card img {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+/* BUTTONS */
+.sizes button {
+    margin: 5px;
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    background: white;
+    cursor: pointer;
+}
+
+.add-btn {
+    width: 100%;
+    padding: 10px;
+    background: black;
+    color: white;
+    border: none;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.wish-btn {
+    margin-top: 8px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+/* FEATURED SECTION */
+.featured {
+    padding: 40px;
+    text-align: center;
+}
+
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.category {
+    display: block;
+    text-decoration: none;
+    color: black;
+}
+
+.category img {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+}
+
+.category img:hover {
+    transform: scale(1.03);
+}
+
+.category span {
+    display: block;
+    margin-top: 10px;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+/* Make footer stay at bottom */
+html, body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
+.footer {
+    background: #111;
+    color: white;
+    padding: 30px;
+    text-align: center;
+}
+
+.footer-links {
+    margin-bottom: 15px;
+}
+
+.footer-links a {
+    color: white;
+    margin: 0 12px;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}
+
+.footer-social a {
+    color: white;
+    margin: 0 10px;
+    font-size: 20px;
+    transition: 0.3s;
+}
+
+.footer-social a:hover {
+    color: #aaa;
+}
+
+.footer p {
+    margin-top: 15px;
+    font-size: 13px;
+}
+
+.right {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+}
+
+.icon {
+    position: relative;
+    font-size: 20px;
+    text-decoration: none;
+    color: black;
+}
+
+.badge {
+    position: absolute;
+    top: -8px;
+    right: -10px;
+    background: red;
+    color: white;
+    font-size: 11px;
+    padding: 3px 6px;
+    border-radius: 50%;
+}
+
+.cart-container {
+    padding: 120px 60px 40px;
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 20px;
+}
+
+.cart-img {
+    width: 120px;
+    height: 150px;
+    object-fit: cover;
+    margin-right: 20px;
+}
+
+.cart-details h3 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.cart-summary {
+    padding: 30px 60px;
+    font-size: 20px;
+    font-weight: 600;
+}
+.checkout-btn {
+    background: black;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+
+.wishlist-item {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.wishlist-img {
+    width: 120px;
+}
+
+.move-btn {
+    background: black;
+    color: white;
+    padding: 8px 15px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.remove-btn {
+    background: white;
+    border: 1px solid black;
+    padding: 8px 15px;
+    cursor: pointer;
+}
+
+.sidebar li {
+    transition: all 0.3s ease;
+}
+
+.sidebar li:hover {
+    background: black;
+    color: white;
+    transform: translateX(5px);
+}
+
+.place-order-btn {
+    background: black;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.place-order-btn:hover {
+    background: #333;
+}
+
+

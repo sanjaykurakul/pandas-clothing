@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Email Verification</title>
+  <style>
+    body {
+        background: #f4f4f4;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    .card {
+        background: white;
+        padding: 50px;
+        border-radius: 15px;
+        text-align: center;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        animation: fadeIn 0.6s ease;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .checkmark {
+        font-size: 60px;
+        color: green;
+        animation: pop 0.4s ease;
+    }
+
+    @keyframes pop {
+        0% { transform: scale(0); }
+        100% { transform: scale(1); }
+    }
+
+    button {
+        margin-top: 20px;
+        padding: 10px 20px;
+        border: none;
+        background: black;
+        color: white;
+        border-radius: 6px;
+        cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <div class="checkmark">✔</div>
+  <h2>Email Verification Required</h2>
+  <p>We have sent a verification link to your email.</p>
+
+  <button onclick="verify()">Verify Email</button>
+</div>
+
+<script>
+  function verify() {
+
+      const email = localStorage.getItem("verifyEmail");
+
+      fetch(`/api/users/verify?email=${email}`)
+      .then(res => res.text())
+      .then(data => {
+
+          document.querySelector(".card").innerHTML = `
+              <div class="checkmark">✔</div>
+              <h2>Email Verified Successfully!</h2>
+              <p>You can now login.</p>
+              <button onclick="window.location.href='/account.html'">
+                  Go to Login
+              </button>
+          `;
+      });
+  }
+</script>
+
+</body>
+</html>

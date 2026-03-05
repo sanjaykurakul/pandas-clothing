@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Wishlist - Pandas</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" type="image/png" href="/panda.png">
+</head>
+<body>
+
+<header class="navbar">
+  <div class="left">
+    <div onclick="toggleMenu()">☰</div>
+  </div>
+
+  <div class="center">
+    <div class="brand">
+      <img src="/images/panda.png" height="26">
+      <span style="font-size:22px;font-weight:600;letter-spacing:2px;">
+                PANDAS
+            </span>
+    </div>
+  </div>
+
+  <div class="right">
+
+    <a href="/wishlist.html" class="icon">
+      ♡
+      <span id="wishlist-count" class="badge">0</span>
+    </a>
+
+    <a href="/cart.html" class="icon">
+      🛒
+      <span id="cart-count" class="badge">0</span>
+    </a>
+
+    <a href="/account.html" class="icon">👤</a>
+
+  </div>
+</header>
+
+<div id="sideMenu" class="side-menu">
+  <div class="close-btn" onclick="toggleMenu()">✖</div>
+
+  <ul>
+    <li><a href="/index.html">Home</a></li>
+    <li><a href="/account.html">Account</a></li>
+    <li><a href="/shirts.html">Shirts</a></li>
+    <li><a href="/cargo.html">Cargo</a></li>
+    <li><a href="/tshirts.html">T-Shirts</a></li>
+    <li><a href="/shoes.html">Shoes</a></li>
+<!--    <li><a href="/account.html">Account</a></li>-->
+  </ul>
+</div>
+
+<div id="overlay" onclick="toggleMenu()"></div>
+
+<div id="wishlist-container" class="cart-container"></div>
+
+<!--<script>-->
+<!--  fetch("/wishlist/my")-->
+<!--  .then(res => res.json())-->
+<!--  .then(data => {-->
+
+<!--      const itemDiv = document.createElement("div");-->
+<!--itemDiv.className = "wishlist-item";-->
+
+<!--itemDiv.innerHTML = `-->
+<!--  <img src="http://localhost:8081${item.product.image}" class="wishlist-img">-->
+
+<!--  <div class="wishlist-details">-->
+<!--      <h3>${item.product.name}</h3>-->
+<!--      <p>₹ ${item.product.price}</p>-->
+
+<!--      <button onclick="moveToCart(${item.id})" class="move-btn">-->
+<!--          ADD TO BAG-->
+<!--      </button>-->
+
+<!--      <button onclick="removeWishlist(${item.id})" class="remove-btn">-->
+<!--          REMOVE-->
+<!--      </button>-->
+<!--  </div>-->
+<!--};-->
+
+<!--container.appendChild(itemDiv);-->
+<!--      });-->
+<!--  });-->
+
+
+<!--  function moveToCart(wishlistId) {-->
+
+<!--  fetch(`/wishlist/move-to-cart/${wishlistId}`, {-->
+<!--      method: "POST"-->
+<!--  })-->
+<!--  .then(() => location.reload());-->
+<!--}-->
+
+<!--function removeWishlist(wishlistId) {-->
+
+<!--  fetch(`/wishlist/remove/${wishlistId}`, {-->
+<!--      method: "DELETE"-->
+<!--  })-->
+<!--  .then(() => location.reload());-->
+<!--}-->
+
+<!--</script>-->
+<script>
+  fetch("/wishlist/my")
+  .then(res => res.json())
+  .then(data => {
+
+      const container = document.getElementById("wishlist-container");
+      container.innerHTML = "";
+
+      data.forEach(item => {
+
+          const itemDiv = document.createElement("div");
+          itemDiv.className = "wishlist-item";
+
+          itemDiv.innerHTML = `
+              <img src="http://localhost:8081${item.product.image}" class="wishlist-img">
+
+              <div class="wishlist-details">
+                  <h3>${item.product.name}</h3>
+                  <p>₹ ${item.product.price}</p>
+
+                  <button onclick="moveToCart(${item.id})" class="move-btn">
+                      ADD TO BAG
+                  </button>
+
+                  <button onclick="removeWishlist(${item.id})" class="remove-btn">
+                      REMOVE
+                  </button>
+              </div>
+          `;
+
+          container.appendChild(itemDiv);
+      });
+  });
+
+  function moveToCart(wishlistId) {
+
+      fetch(`/wishlist/move-to-cart/${wishlistId}`, {
+          method: "POST"
+      })
+      .then(() => location.reload());
+  }
+
+  function removeWishlist(wishlistId) {
+
+      fetch(`/wishlist/remove/${wishlistId}`, {
+          method: "DELETE"
+      })
+      .then(() => location.reload());
+  }
+</script>
+
+<script src="/js/main.js"></script>
+</body>
+</html>

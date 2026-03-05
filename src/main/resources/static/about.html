@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>About Us</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" type="image/png" href="/panda.png">
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+<header class="navbar">
+  <div class="left">
+    <div onclick="toggleMenu()">☰</div>
+  </div>
+
+  <div class="center">
+    <div class="brand">
+      <img src="/images/panda.png" height="26">
+      <span style="font-size:22px;font-weight:600;letter-spacing:2px;">
+                PANDAS
+            </span>
+    </div>
+  </div>
+
+  <div class="right">
+
+    <a href="/wishlist.html" class="icon">
+      ♡
+      <span id="wishlist-count" class="badge">0</span>
+    </a>
+
+    <a href="/cart.html" class="icon">
+      🛒
+      <span id="cart-count" class="badge">0</span>
+    </a>
+
+    <a href="/account.html" >Account class="icon">👤</a>
+
+  </div>
+</header>
+
+<div id="sideMenu" class="side-menu">
+  <div class="close-btn" onclick="toggleMenu()">✖</div>
+
+  <ul>
+    <li><a href="/index.html">Home</a></li>
+    <li><a href="/account.html">Account</a></li>
+    <li><a href="/shirts.html">Shirts</a></li>
+    <li><a href="/cargo.html">Cargo</a></li>
+    <li><a href="/tshirts.html">T-Shirts</a></li>
+    <li><a href="/shoes.html">Shoes</a></li>
+<!--    <li><a href="/account.html">Account</a></li>-->
+  </ul>
+</div>
+
+<div id="overlay" onclick="toggleMenu()"></div>
+
+
+<main style="padding:40px;">
+  <h1>About Pandas Clothing</h1>
+  <p>
+    Pandas Clothing is a modern fashion brand focused on
+    premium minimal designs and high quality fabric.
+  </p>
+</main>
+
+<footer class="footer">
+  <p>© 2026 Pandas Clothing</p>
+</footer>
+
+<script src="/js/main.js"></script>
+</body>
+</html>
